@@ -8,6 +8,7 @@ import { CreatePost } from './pages/CreatePost/CreatePost';
 
 const App = () => {
   return (
+    <div className='App text-gray-800'>
     <BrowserRouter>
       <Navbar />
         <Routes>
@@ -15,12 +16,13 @@ const App = () => {
           <Route path='login' element={<Login />} />
           <Route path='signup' element={<Signup />} />
           <Route path='createpost' element={<CreatePost />} />
-          <Route path='*' element={
+          {/* <Route path='*' element={
             <p>Uh-oh! Page not found...</p>
-          } />
+          } /> */}
         </Routes>
 
     </BrowserRouter>
+    </div>
   );
 }
 
