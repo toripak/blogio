@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: rgb(238,174,202);
-  background: linear-gradient(86deg, rgba(238,174,202,.2) 0%, rgba(148,187,233,.2) 100%);
+  background: rgb(238, 174, 202);
+  background: linear-gradient(86deg, rgba(238, 174, 202, .25) 0%, rgba(148, 187, 233, .25) 100%);
 }
-
