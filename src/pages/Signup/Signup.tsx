@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useSignup } from '../../hooks/useSignup';
 
 export const Signup = () => {
   const inputRef = useRef(null);
@@ -9,9 +10,11 @@ export const Signup = () => {
   const [icon, setIcon] = useState<any>(null);
   const [iconError, setIconError] = useState('');
 
+  const { signup, isLoading, error } = useSignup();
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(email, password, displayName, icon)
+    signup(email, password, displayName, icon);
   };
 
   const handleIconUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
