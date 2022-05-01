@@ -3,14 +3,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
 
 import { DefaultUserState } from '../utils/interfaces';
-import { AuthAction } from '../utils/types';
+import { AuthAction, User } from '../utils/types';
 
 const initialState = {
   user: null,
   authenticated: false,
 }
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext<User>(null);
 
 export const authReducer = (state: DefaultUserState, action: AuthAction) => {
   const { type, payload } = action;
