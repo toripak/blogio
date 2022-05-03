@@ -1,10 +1,10 @@
 import { User } from "./types";
 
 export interface InitialStateType {
-  document: any;
+  document: { [key: string]: any } | null;
   isLoading: Boolean;
-  error: Error | null;
-  success: Boolean;
+  error: string | null;
+  success: Boolean | null;
 };
 
 export interface DefaultUserState {
