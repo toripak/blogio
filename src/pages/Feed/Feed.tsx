@@ -1,7 +1,12 @@
-import React from 'react'
+import { PostList } from "../../components/PostList";
+import { useCollection } from "../../hooks/useCollection";
 
 export const Feed = () => {
+  const { posts, error } = useCollection('posts');
+
   return (
-    <div>Feed</div>
+    <div>
+      <PostList posts={posts} />
+    </div>
   )
 }
