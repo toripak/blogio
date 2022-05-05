@@ -1,27 +1,37 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import { Navbar } from './pages/components/Navbar';
+import { Navbar } from './components/Navbar';
 import { Feed } from './pages/Feed/Feed';
 import { Login } from './pages/Login/Login';
 import { Signup } from './pages/Signup/Signup';
 import { CreatePost } from './pages/CreatePost/CreatePost';
 
+import { useAuthContext } from './hooks/useAuthContext';
+import { UserProfile } from './pages/UserProfile/UserProfile';
+import { PostSummary } from './pages/PostSummary/PostSummary';
+
 const App = () => {
+  const { authenticated, user } = useAuthContext();
+
   return (
     <div className='App text-gray-800'>
-    <BrowserRouter>
-      <Navbar />
-        <Routes>
-          <Route path='/' element={<Feed />} />
-          <Route path='login' element={<Login />} />
-          <Route path='signup' element={<Signup />} />
-          <Route path='createpost' element={<CreatePost />} />
-          {/* <Route path='*' element={
+      {authenticated && (
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Feed />} />
+            <Route path='login' element={!user ? <Login /> : <Navigate to="/" replace={true} />} />
+            <Route path='signup' element={!user ? <Signup /> : <Navigate to="/" replace={true} />} />
+            <Route path='createpost' element={<CreatePost />} />
+            <Route path={`user-profile/${user?.uid}`} element={<UserProfile />} />
+            <Route path={`posts/:id`} element={<PostSummary />} />
+            {/* <Route path='*' element={
             <p>Uh-oh! Page not found...</p>
           } /> */}
-        </Routes>
+          </Routes>
 
-    </BrowserRouter>
+        </BrowserRouter>
+      )}
     </div>
   );
 }

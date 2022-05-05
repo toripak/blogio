@@ -12,7 +12,7 @@ export const useCollection = (col: string, q?: q, _orderBy?: _orderBy) => {
   const orderByQuery = useRef(_orderBy).current;
 
   useEffect(() => {
-    const collectionRef = collection(db, col);
+    let collectionRef = collection(db, col);
     let firebaseQuery = query(collectionRef);
 
     if (originalQuery) {
@@ -22,7 +22,7 @@ export const useCollection = (col: string, q?: q, _orderBy?: _orderBy) => {
       firebaseQuery = query(collectionRef, orderBy(...orderByQuery))
     };
 
-    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+    const unsubscribe = onSnapshot(firebaseQuery, (snapshot) => {
       let results: DocumentData[] = [];
       snapshot.docs.forEach(document => {
         results.push({ ...document.data(), id: document.id })
