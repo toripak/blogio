@@ -12,7 +12,6 @@ type Props = {
 export const CreateComment: React.FC<Props> = ({ post }) => {
   const { user } = useAuthContext();
   const [commentText, setCommentText] = useState<string>('');
-  const [commentsCount, setCommentsCount] = useState(() => post?.comments.length)
 
   const navigate = useNavigate();
 
@@ -39,7 +38,6 @@ export const CreateComment: React.FC<Props> = ({ post }) => {
       comments: [...post.comments, newComment]
     })
     setCommentText('');
-    navigate(`/posts/${post.id}`);
   }
 
   useEffect(() => {

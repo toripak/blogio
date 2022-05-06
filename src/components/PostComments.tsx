@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { Comment } from '../utils/types';
 import { Avatar } from './Avatar';
 
@@ -7,13 +9,18 @@ type Props = {
 }
 
 export const PostComments: React.FC<Props> = ({ comments }) => {
-  console.log(comments)
+  const { user } = useAuthContext();
 
   return (
     <div>
-      {comments && (
-
+      {comments.length > 0 && (
         <div className="container-md m-2 flex flex-col items-center">
+          {!user && (
+            <div className='my-2 flex flex-col items-center'>
+              <h2 className='font-bold '>Comments ({comments.length}) </h2>
+              <p className='italic text-sm'>Please <Link to='/login' className='text-blue-600 underline'>log in</Link>  to leave comments</p>
+            </div>)}
+
           {comments?.map(comment => {
             return (
               <div
