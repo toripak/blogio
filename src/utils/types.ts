@@ -23,7 +23,15 @@ export type AuthAction =
 export type q = [string, WhereFilterOp, string];
 export type _orderBy = [string, OrderByDirection | undefined];
 
-
+// comment type
+export type Comment = {
+  displayName: string,
+  photoURL: string,
+  content: string,
+  createdAt: Timestamp,
+  id: string,
+  userID: string
+}
 
 
 

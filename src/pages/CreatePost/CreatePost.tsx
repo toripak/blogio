@@ -22,17 +22,17 @@ export const CreatePost = () => {
 
     const post = {
       title,
-      tags,
+      tags: tags,
       postContent,
       postedBy,
       comments: [],
-      likes: [],
+      likes: 0,
       readingTime: 0,
     }
 
     await addDocument(post);
     if (!firestoreRes.error) {
-      navigate('/feed');
+      navigate('/');
     }
   }
 
@@ -40,7 +40,7 @@ export const CreatePost = () => {
   return (
     <div className="container flex justify-center">
       <form
-        className="flex w-full flex-col m-4 border border-gray-100 rounded bg-white shadow-md"
+        className="flex w-full lg:w-5/6 flex-col m-4 border border-gray-100 rounded bg-white shadow-md"
         onSubmit={handleSubmit}
       >
         <label
@@ -75,12 +75,12 @@ export const CreatePost = () => {
             required
             value={postContent}
             onChange={(e) => setPostContent(e.target.value)}
-            className="placeholder:font-mono w-full outline-none"
+            className="placeholder:font-mono w-full outline-none min-h-20"
             placeholder="Write your post content here..."
           />
         </label>
         <button
-          className="m-3 p-2 w-24 tracking-wide text-white font-semibold bg-indigo-500 hover:bg-indigo-600 rounded"
+          className="m-3 p-2 w-24 tracking-wide text-white font-semibold bg-indigo-500 hover:bg-indigo-600 transition ease-in active:scale-95 rounded"
         >
           Publish
         </button>
