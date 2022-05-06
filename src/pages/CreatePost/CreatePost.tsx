@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
+import { readingTimeInMinutes } from "../../utils/readingTime";
 
 export const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -20,6 +21,8 @@ export const CreatePost = () => {
       id: user.uid
     }
 
+    const readingTime = readingTimeInMinutes(postContent);
+
     const post = {
       title,
       tags: tags,
@@ -27,7 +30,7 @@ export const CreatePost = () => {
       postedBy,
       comments: [],
       likes: 0,
-      readingTime: 0,
+      readingTime,
     }
 
     await addDocument(post);
@@ -35,7 +38,6 @@ export const CreatePost = () => {
       navigate('/');
     }
   }
-
 
   return (
     <div className="container flex justify-center">
