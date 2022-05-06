@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSignup } from '../../hooks/useSignup';
 
 export const Signup = () => {
-  const inputRef = useRef(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -30,7 +29,7 @@ export const Signup = () => {
       setIconError('File type must be an image')
       return
     }
-    if (file?.size > 80000) {
+    if (file?.size > 81000) {
       setIconError('File size should be less than 80kb')
       return
     }
@@ -88,7 +87,6 @@ export const Signup = () => {
         >
           <p className='text-center text-sm'>Profile avatar:</p>
           <input
-            ref={inputRef}
             type="file"
             required
             accept="image/*"
@@ -97,9 +95,15 @@ export const Signup = () => {
           />
         </label>
         {iconError && <p className='m-2 border text-center w-60 text-sm bg-red-50 text-red-500 border-red-300 rounded p-1'>{iconError}</p>}
-        <button
+        {!isLoading && <button
           className='text-white tracking-wider text-lg rounded font-bold w-60 text-center bg-gradient-to-br from-blue-400 to-purple-400 active:translate-y-1 mt-2 mb-4 p-2'
-        >Create Account</button>
+        >Create Account
+        </button>}
+        {isLoading && <button disabled
+          className='text-white tracking-wider text-lg rounded font-bold w-60 text-center bg-gradient-to-br from-blue-400 to-purple-400 active:translate-y-1 mt-2 mb-4 p-2'
+        >Loading...
+        </button>}
+        {error && <p className='my-2 text-red-600'>{error}</p>}
       </form>
 
       <div>
