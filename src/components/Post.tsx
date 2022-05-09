@@ -1,22 +1,40 @@
 import { doc, DocumentData, updateDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from './Avatar';
 import { AiOutlineLike } from 'react-icons/ai';
 import { MdOutlineModeComment } from 'react-icons/md';
 import { db } from '../firebase/firebase-config';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Comment } from '../utils/types';
+import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { useFirestore } from '../hooks/useFirestore';
+import { EditPost } from './EditPost';
 
 type Props = {
   post: DocumentData;
-  showPostContent: Boolean
+  showPostContent: Boolean;
 }
 
 export const Post: React.FC<Props> = ({ post, showPostContent }) => {
   const { user } = useAuthContext();
   const [liked, setLiked] = useState(false);
+  const [updating, setUpdating] = useState(false);
+
   const navigate = useNavigate();
+  const { deleteDocument, firestoreRes } = useFirestore('posts');
+
+  const handleEditClick = (e: React.SyntheticEvent) => {
+    setUpdating(updating => !updating);
+    navigate(`/posts/${post.id}`);
+  }
+
+  const handleDeleteClick = () => {
+    deleteDocument(post.id);
+
+    if (!firestoreRes) {
+      navigate('/')
+    }
+  }
 
   const postedAt = post.createdAt.toDate().toLocaleDateString('gb', { dateStyle: 'medium' });
   const tags = post.tags.split(',').map((tag: string) => <p key={tag} className='my-1 p-1 hover:bg-indigo-100/70 rounded'>#{tag.trim()}</p>);
@@ -28,11 +46,11 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
       return;
     }
 
-    setLiked(prev => !prev);
-    const collectionRef = doc(db, 'posts', post.id);
+    setLiked(notLiked => !notLiked);
+    const postRef = doc(db, 'posts', post.id);
     const newLikes = !liked ? post.likes += 1 : post.likes -= 1;
 
-    await updateDoc(collectionRef, {
+    await updateDoc(postRef, {
       likes: newLikes
     })
   }
@@ -55,6 +73,15 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
             </div>
           </div>
 
+          {user?.uid === post.postedBy.id && <div className='absolute self-top self-end'>
+            <button onClick={handleEditClick} className='px-1'>
+              <AiOutlineEdit size={18} color='#5A67D8' />
+            </button>
+            <button onClick={handleDeleteClick}>
+              <AiOutlineDelete size={18} color='#E53E3E' />
+            </button>
+          </div>}
+
           <Link to={`/posts/${post.id}`} className='m-1 ml-14 pl-1'>
             <h2 className='text-xl font-bold hover:text-indigo-700'>{post.title}</h2>
             <div className='flex text-sm -ml-1'>{tags}</div>
@@ -63,6 +90,12 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
               <div className='my-1 mb-2'>
                 <p>{post.postContent}</p>
               </div>)}
+
+            {updating && <EditPost
+              id={post.id}
+              updating={updating}
+              setUpdating={setUpdating}
+            />}
 
             <div className='flex items-center justify-between text-sm'>
               <div className='flex items-center'>
