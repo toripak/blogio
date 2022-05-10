@@ -1,5 +1,5 @@
 import { useAuthContext } from "../hooks/useAuthContext"
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { timestamp } from "../firebase/firebase-config";
 import { DocumentData, updateDoc, doc } from "firebase/firestore";
 import { db } from '../firebase/firebase-config';
@@ -39,10 +39,6 @@ export const CreateComment: React.FC<Props> = ({ post }) => {
     })
     setCommentText('');
   }
-
-  useEffect(() => {
-    setCommentsCount(post.comments.length)
-  })
 
   return (
     <div className="container-md m-2 flex flex-col items-center">

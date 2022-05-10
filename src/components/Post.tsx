@@ -31,9 +31,8 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
   const handleDeleteClick = () => {
     deleteDocument(post.id);
 
-    if (!firestoreRes) {
-      navigate('/')
-    }
+    navigate('/');
+
   }
 
   const postedAt = post.createdAt.toDate().toLocaleDateString('gb', { dateStyle: 'medium' });
@@ -63,7 +62,7 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
   return (
     <div className='container-md m-2 flex flex-col items-center'>
       {post && (
-        <div className='m-1 p-2 flex flex-col lg:w-5/6 justify-between w-full border border-gray-100 backdrop-blur-md rounded shadow-sm bg-white/50 '>
+        <div className='m-1 p-2 flex flex-col lg:w-5/6 min-w-fit justify-between w-full border border-gray-100 backdrop-blur-md rounded shadow-sm bg-white/50 '>
           <div
             className='flex items-center mb-2 -ml-1'>
             <Avatar img={post.postedBy.photoURL} id={post.postedBy.id} />
@@ -82,12 +81,15 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
             </button>
           </div>}
 
-          <Link to={`/posts/${post.id}`} className='m-1 ml-14 pl-1'>
-            <h2 className='text-xl font-bold hover:text-indigo-700'>{post.title}</h2>
+          <div className='m-1 ml-14 pl-1'>
+            <Link to={`/posts/${post.id}`}>
+              <h2 className='text-xl font-bold hover:text-indigo-700'>{post.title}</h2>
+            </Link>
             <div className='flex text-sm -ml-1'>{tags}</div>
 
             {showPostContent && (
               <div className='my-1 mb-2'>
+                {post.editedOn && <p className='my-2 text-sm italic font-semibold'>Edited on: <span className='no-underline font-normal'>{post.editedOn}</span></p>}
                 <p>{post.postContent}</p>
               </div>)}
 
@@ -121,9 +123,10 @@ export const Post: React.FC<Props> = ({ post, showPostContent }) => {
               <p className='text-xs'>{post.readingTime} min read</p>
 
             </div>
-          </Link>
+          </div>
         </div >
-      )}
+      )
+      }
     </div >
   )
 }

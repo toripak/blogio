@@ -11,12 +11,15 @@ type Props = {
 export const EditPost: React.FC<Props> = ({ id, updating, setUpdating }) => {
   const [newPostContent, setNewPostContent] = useState('');
 
+  const editedOn = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'long' }).format(new Date());
+
   const handleSubmitChange = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const postRef = doc(db, 'posts', id);
     await updateDoc(postRef, {
-      postContent: newPostContent
+      postContent: newPostContent,
+      editedOn
     })
 
     setUpdating(false);
