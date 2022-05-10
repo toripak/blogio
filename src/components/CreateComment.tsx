@@ -42,7 +42,7 @@ export const CreateComment: React.FC<Props> = ({ post }) => {
 
   return (
     <div className="container-md m-2 flex flex-col items-center">
-      <div className="m-1 p-2 flex flex-col lg:w-5/6 justify-between w-full border border-gray-100 backdrop-blur-md rounded shadow-sm bg-white/50">
+      <div className="p-2 min-w-fit flex flex-col lg:w-5/6 justify-between w-full border border-gray-100 backdrop-blur-md rounded shadow-sm bg-white/50">
         <form onSubmit={handleCommentClick}>
           <h2 className="font-bold text-lg">Discussion ({0 || post?.comments.length}) </h2>
           <textarea

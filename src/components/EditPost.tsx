@@ -1,6 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { db } from '../firebase/firebase-config';
+import { readingTimeInMinutes } from '../utils/readingTime';
 
 type Props = {
   id: string;
@@ -17,7 +18,10 @@ export const EditPost: React.FC<Props> = ({ id, updating, setUpdating }) => {
     e.preventDefault();
 
     const postRef = doc(db, 'posts', id);
+    const readingTime = readingTimeInMinutes(newPostContent);
+
     await updateDoc(postRef, {
+      readingTime,
       postContent: newPostContent,
       editedOn
     })

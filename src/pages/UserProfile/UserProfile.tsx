@@ -10,7 +10,7 @@ export const UserProfile = () => {
 
   return (
     <div className='container-md m-3 flex rounded flex-col items-center'>
-      <img
+      {/* <img
         className='w-full h-48 2xl:h-56 shadow-md opacity-50 rounded object-cover'
         src={'https://source.unsplash.com/random/?sky,pastel'}
         alt="banner"
@@ -19,7 +19,8 @@ export const UserProfile = () => {
         className='w-12 h-12 ml-2 rounded-full hover:shadow-md transition ease-in-out object-cover '
         src={photoURL}
         alt="user avatar"
-      />}
+      />} */}
+      User Profile / in progress
 
     </div>
   )
