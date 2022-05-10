@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { auth, storage } from '../firebase/firebase-config';
+import { auth, db, storage } from '../firebase/firebase-config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useAuthContext } from './useAuthContext';
 
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
 
 export const useSignup = () => {
   const [error, setError] = useState<string | null>(null);
@@ -22,15 +23,14 @@ export const useSignup = () => {
       }
 
       // upload user icon
-      const iconRef = ref(storage, `icons/${userCredential.user.uid}/${icon.name}`);
+      const iconRef = ref(storage, `icons/${userCredential.user.uid}`);
       const iconSnapshot = await uploadBytes(iconRef, icon);
 
       const photoURL = await getDownloadURL(iconRef);
 
       await updateProfile(userCredential.user, { displayName, photoURL });
-      console.log(userCredential.user)
-
       dispatch({ type: 'LOGIN', payload: userCredential.user });
+      await setDoc(doc(db, 'users', `${userCredential.user.uid}`), userCredential.user);
 
       setIsLoading(false);
       setError(null);

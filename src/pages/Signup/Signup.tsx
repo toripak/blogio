@@ -1,6 +1,9 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useFirestore } from '../../hooks/useFirestore';
 import { useSignup } from '../../hooks/useSignup';
+import { auth } from '../../firebase/firebase-config';
 
 export const Signup = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +14,7 @@ export const Signup = () => {
 
   const { signup, isLoading, error } = useSignup();
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     signup(email, password, displayName, icon);
   };

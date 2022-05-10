@@ -23,7 +23,7 @@ const App = () => {
             <Route path='login' element={!user ? <Login /> : <Navigate to="/" replace={true} />} />
             <Route path='signup' element={!user ? <Signup /> : <Navigate to="/" replace={true} />} />
             <Route path='createpost' element={<CreatePost />} />
-            <Route path={`user-profile/${user?.uid}`} element={<UserProfile />} />
+            <Route path={`user-profile/:uid`} element={<UserProfile />} />
             <Route path={`posts/:id`} element={<PostSummary />} />
             {/* <Route path='*' element={
             <p>Uh-oh! Page not found...</p>

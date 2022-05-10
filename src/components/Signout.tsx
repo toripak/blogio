@@ -1,12 +1,14 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSignOut } from '../hooks/useSignOut';
 import { BiExit } from 'react-icons/bi';
 
 export const Signout = () => {
-  const { signout, error, loading } = useSignOut();
+  const { signout, error } = useSignOut();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     signout();
+    navigate('/')
   }
 
   return (

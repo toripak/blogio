@@ -31,6 +31,7 @@ export const CreatePost = () => {
       comments: [],
       likes: 0,
       readingTime,
+      modifiedAt: '',
     }
 
     await addDocument(post);

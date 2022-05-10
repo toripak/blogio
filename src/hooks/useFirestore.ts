@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { Reducer, useReducer } from 'react';
 import { db, timestamp } from '../firebase/firebase-config';
 import { InitialStateType } from '../utils/interfaces';
@@ -54,6 +54,7 @@ export const useFirestore = (col: string) => {
       dispatch({ type: 'ERROR', payload: error.message })
     }
   }
+
 
   return { addDocument, deleteDocument, firestoreRes };
 }
