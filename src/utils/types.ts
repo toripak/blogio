@@ -20,7 +20,7 @@ export type AuthAction =
   | { type: 'LOGOUT'; payload: null }
 
 // useCollection hook types
-export type q = [string, WhereFilterOp, string];
+export type q = [string, WhereFilterOp, string?];
 export type _orderBy = [string, OrderByDirection | undefined];
 
 // comment type

@@ -11,7 +11,7 @@ export const Avatar: React.FC<Props> = ({ img, id }) => {
     <>
       <Link to={`/user-profile/${id}`} className='min-w-fit'>
         <img
-          className='w-12 h-12 ml-2 rounded-full hover:shadow-md transition ease-in-out object-cover '
+          className='w-14 h-14 ml-2 rounded-full hover:shadow-md transition ease-in-out object-cover '
           src={img}
           alt="user avatar" />
       </Link>

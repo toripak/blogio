@@ -30,7 +30,13 @@ export const useSignup = () => {
 
       await updateProfile(userCredential.user, { displayName, photoURL });
       dispatch({ type: 'LOGIN', payload: userCredential.user });
-      await setDoc(doc(db, 'users', `${userCredential.user.uid}`), userCredential.user);
+
+      const newUser = {
+        id: userCredential.user.uid,
+        displayName: userCredential.user.displayName,
+        photoURL: userCredential.user.photoURL
+      }
+      await setDoc(doc(db, 'users', `${newUser.id}`), newUser);
 
       setIsLoading(false);
       setError(null);
