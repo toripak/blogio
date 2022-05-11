@@ -13,7 +13,7 @@ Still working on UserProfile component and CreatePost/EditPost :)
 
 - Clone the repo:
  
-`$ git clone git@github.com:victoriapak/my-wallet.git`
+`$ git clone git@github.com:victoriapak/blogio.git`
 
 - Install dependencies:
 
