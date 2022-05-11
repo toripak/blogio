@@ -1,27 +1,32 @@
-import { FirebaseError } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getDownloadURL, ref } from 'firebase/storage';
-import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Avatar } from '../../components/Avatar';
+import { PostList } from '../../components/PostList';
+import { useCollection } from '../../hooks/useCollection';
+import { useFirestoreDoc } from '../../hooks/useFirestoreDoc';
 
 export const UserProfile = () => {
   const { uid } = useParams<{ uid?: string }>();
-  let photoURL: string | undefined;
+
+  const { document, error } = useFirestoreDoc('users', uid);
+  const { posts } = useCollection('posts', ['postedBy.id', '==', uid]);
+
+  if (error) {
+    return <div>Error</div>
+  }
 
   return (
-    <div className='container-md m-3 flex rounded flex-col items-center'>
-      {/* <img
-        className='w-full h-48 2xl:h-56 shadow-md opacity-50 rounded object-cover'
-        src={'https://source.unsplash.com/random/?sky,pastel'}
-        alt="banner"
-      />
-      {photoURL && <img
-        className='w-12 h-12 ml-2 rounded-full hover:shadow-md transition ease-in-out object-cover '
-        src={photoURL}
-        alt="user avatar"
-      />} */}
-      User Profile / in progress
-
+    <div>
+      <div className='container-md m-3 flex rounded flex-col items-center'>
+        <img
+          className='w-full h-48 2xl:h-56 shadow-md opacity-40 rounded object-cover'
+          src={'https://source.unsplash.com/random/?sky,pastel'}
+          alt="banner"
+        />
+        {document && <div className='relative -top-7 scale-150 '>
+          <Avatar img={document.photoURL} id={document.id} />
+        </div>}
+      </div>
+      {document && <PostList posts={posts} showPostContent={false} />}
     </div>
   )
 }

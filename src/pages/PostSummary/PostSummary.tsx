@@ -1,3 +1,4 @@
+import { doc } from 'firebase/firestore';
 import { Link, useParams } from 'react-router-dom';
 import { CreateComment } from '../../components/CreateComment';
 import { Post } from '../../components/Post';
@@ -11,7 +12,7 @@ export const PostSummary = () => {
 
 
   const { user } = useAuthContext();
-  let { post, error } = useFirestoreDoc('posts', id);
+  let { document, error } = useFirestoreDoc('posts', id);
 
   if (error) {
     return <div>{error}</div>
@@ -22,19 +23,19 @@ export const PostSummary = () => {
 
   return (
     <div>
-      {post && (
+      {document && (
         <>
-          <Post post={post} showPostContent={true} />
-          {user && <CreateComment post={post} />}
+          <Post post={document} showPostContent={true} />
+          {user && <CreateComment post={document} />}
           {!user && (
             <div className="container-md m-2 flex flex-col items-center">
               <div className='my-2 flex flex-col items-center'>
-                <h2 className='font-bold '>Comments ({post.comments.length}) </h2>
+                <h2 className='font-bold '>Comments ({document.comments.length}) </h2>
                 <p className='italic text-sm'>Please <Link to='/login' className='text-blue-600 underline'>log in</Link>  to leave comments</p>
               </div>
             </div>
           )}
-          <PostComments comments={post.comments} />
+          <PostComments comments={document.comments} />
         </>
       )}
     </div>
