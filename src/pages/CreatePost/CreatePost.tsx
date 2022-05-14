@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { readingTimeInMinutes } from "../../utils/readingTime";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 export const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -74,16 +75,16 @@ export const CreatePost = () => {
         <label
           className="px-2 m-3 "
         >
-          <textarea
-            required
+          <MarkdownEditor
             value={postContent}
-            onChange={(e) => setPostContent(e.target.value)}
+            onChange={(value: string) => setPostContent(value)}
             className="placeholder:font-mono w-full outline-none min-h-20"
-            placeholder="Write your post content here..."
+            visible={true}
+            visibleEditor={true}
           />
         </label>
         <button
-          className="m-3 p-2 w-24 tracking-wide text-white font-semibold bg-indigo-500 hover:bg-indigo-600 transition ease-in active:scale-95 rounded"
+          className="btn-secondary ml-5 my-4"
         >
           Publish
         </button>
