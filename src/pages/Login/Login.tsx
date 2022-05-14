@@ -17,7 +17,7 @@ export const Login = () => {
   return (
     <div className='flex mt-4 mx-2 justify-center items-center flex-col'>
       <form
-        className='container p-2 m-3 backdrop-blur-xl bg-white/40 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 shadow-md rounded'
+        className='container p-2 m-3 min-w-fit backdrop-blur-xl bg-white/40 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 shadow-md rounded'
         onSubmit={handleSubmit}
       >
         <h2 className='mt-3 font-bold text-lg'>Log in</h2>
@@ -50,7 +50,7 @@ export const Login = () => {
 
         {!loading && (
           <button
-            className='text-white w-60 tracking-wider text-lg rounded font-bold text-center bg-gradient-to-br from-blue-400 to-purple-400 active:translate-y-1 mt-2 mb-4 p-2'
+            className='btn-primary'
           >
             Log in
           </button>
@@ -58,7 +58,8 @@ export const Login = () => {
 
         {loading && (
           <button
-            className='disabled text-white w-60 tracking-wider text-lg rounded font-bold text-center bg-gradient-to-br from-blue-400 to-purple-400 active:translate-y-1 mt-2 mb-4 p-2'
+            disabled
+            className='btn-primary'
           >
             Log in
           </button>

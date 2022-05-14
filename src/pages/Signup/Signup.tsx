@@ -44,7 +44,7 @@ export const Signup = () => {
   return (
     <div className='flex mt-4 mx-2 justify-center items-center flex-col'>
       <form
-        className='container p-2 m-3 backdrop-blur-xl bg-white/40 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 shadow-md rounded'
+        className='container min-w-fit p-2 m-3 backdrop-blur-xl bg-white/40 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 shadow-md rounded'
         onSubmit={handleSubmit}
       >
         <h2 className='mt-3 font-bold text-lg'>Sign up</h2>
@@ -103,7 +103,7 @@ export const Signup = () => {
         >Create Account
         </button>}
         {isLoading && <button disabled
-          className='text-white tracking-wider text-lg rounded font-bold w-60 text-center bg-gradient-to-br from-blue-400 to-purple-400 active:translate-y-1 mt-2 mb-4 p-2'
+          className='btn-primary'
         >Loading...
         </button>}
         {error && <p className='my-2 text-red-600'>{error}</p>}

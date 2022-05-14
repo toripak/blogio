@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn-primary {
+    @apply text-white w-60 tracking-wider text-lg rounded font-bold text-center bg-gradient-to-br from-blue-400 to-purple-400 mt-2 mb-4 p-2
+  }
+
+  .btn-primary:active {
+    @apply translate-y-1
+  }
+
+  .btn-secondary {
+    @apply p-2 w-20 tracking-wide text-white font-semibold bg-indigo-500 rounded
+  }
+
+  .btn-secondary:hover {
+    @apply bg-indigo-600 transition ease-in
+  }
+
+  .btn-secondary:active {
+    @apply scale-95
+  }
+}
+
 body {
   box-sizing: border-box;
   margin: 0;

@@ -13,9 +13,9 @@ export const Navbar = () => {
           <span className='font-mono hover:translate-y-1 cursor-pointer text-3xl font-bold'>b.</span>
           <p className='text-gray-600 font-mono text-xs cursor-pointer'>blogio</p>
         </Link >
-        <div className='flex items-center font-mono text-xs'>
-          {!user && <NavLink to='login' className='pl-3'>Log in</NavLink >}
-          {!user && <NavLink to='signup' className='pl-3'>Sign up</NavLink >}
+        <div className='flex items-center font-mono text-sm'>
+          {!user && <NavLink to='login' className='btn-secondary text-center'>Log in</NavLink >}
+          {!user && <NavLink to='signup' className='pl-3 text-blue-600'>Sign up</NavLink >}
           {user && <Link to='createpost' className='text-center text-sm p-2 m-1 text-indigo-600 border border-indigo-500 tracking-wide hover:bg-indigo-500 active:scale-95 transition ease-in hover:text-white rounded font-bold'>Create Post</Link>}
           {user && <Avatar img={user.photoURL} id={user.uid} />}
           {user && <Signout />}
